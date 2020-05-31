@@ -4,7 +4,7 @@ import { RootStore } from "../../models/root-store/root-store"
 import { onSnapshot } from "mobx-state-tree"
 import { ReactotronConfig, DEFAULT_REACTOTRON_CONFIG } from "./reactotron-config"
 import { mst } from "reactotron-mst"
-import { clear } from "../../utils/storage"
+import { clear } from "../../storage"
 import { RootNavigation } from "../../navigation"
 
 // Teach TypeScript about the bad things we want to do.

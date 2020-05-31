@@ -14,7 +14,7 @@ import "./utils/ignore-warnings"
 import React, { useState, useEffect, useRef, FunctionComponent as Component } from "react"
 import { NavigationContainerRef } from "@react-navigation/native"
 import { SafeAreaProvider, initialWindowSafeAreaInsets } from "react-native-safe-area-context"
-import * as storage from "./utils/storage"
+import * as storage from "./storage"
 import {
   useBackButtonHandler,
   RootNavigator,
