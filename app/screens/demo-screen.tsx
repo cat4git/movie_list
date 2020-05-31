@@ -1,13 +1,8 @@
 import React, { FunctionComponent as Component } from "react"
-import { Image, ImageStyle, Platform, TextStyle, View, ViewStyle } from "react-native"
+import {  ImageStyle, TextStyle, View, ViewStyle, Image,Text} from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { observer } from "mobx-react-lite"
-import { BulletItem, Button, Header, Text, Screen, Wallpaper } from "../../components"
-import { color, spacing } from "../../theme"
-import { Api } from "../../services/api"
-import { save } from "../../storage"
-export const logoIgnite = require("./logo-ignite.png")
-export const heart = require("./heart.png")
+import { color, spacing } from "../theme"
 
 
 export const DemoScreen: Component = observer(function DemoScreen() {
@@ -56,15 +51,15 @@ export const DemoScreen: Component = observer(function DemoScreen() {
 
   return (
     <View style={FULL}>
-      <Wallpaper />
+      {/* <Wallpaper />
       <Screen style={CONTAINER} preset="scroll" backgroundColor={color.transparent}>
         <Header
-          headerTx="demoScreen.howTo"
+          headerTx="demoScreen.movieList"
           leftIcon="back"
           onLeftPress={goBack}
           style={HEADER}
           titleStyle={HEADER_TITLE}
-        />
+        /> */}
         {/* <Text style={TITLE} preset="header" tx="demoScreen.title" />
         <Text style={TAGLINE} tx="demoScreen.tagLine" />
         <BulletItem text="Load up Reactotron!  You can inspect your app, view the events, interact, and so much more!" />
@@ -78,13 +73,13 @@ export const DemoScreen: Component = observer(function DemoScreen() {
           />
           <Text style={HINT} tx={`demoScreen.${Platform.OS}ReactotronHint`} />
         </View>
-        <Image source={logoIgnite} style={IGNITE} />
+        */}
         <View style={LOVE_WRAPPER}>
-          <Text style={LOVE} text="Made with" />
-          <Image source={heart} style={HEART} />
-          <Text style={LOVE} text="by Infinite Red" />
-        </View> */}
-      </Screen>
+          <Text style={LOVE}>Made with</Text>
+          {/* <Image source={heart} style={HEART} />
+          <Text style={LOVE} text="by Infinite Red" /> */}
+        </View>
+      {/* </Screen> */}
     </View>
   )
 })

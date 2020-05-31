@@ -1,0 +1,23 @@
+{
+    "common": {
+      "ok": "OK!",
+      "cancel": "Cancel",
+      "back": "Back"
+    },
+    "errors": {
+      "invalidEmail": "Invalid email address."
+    },
+    "welcomeScreen": {
+      "poweredBy": "POWERED BY BOWSER",
+      "readyForLaunch": "Ready for launch.",
+      "continue": "CONTINUE"
+    },
+    "demoScreen": {
+      "movieList": "רשימת סרטים",
+      
+    },
+    "storybook": {
+      "placeholder": "Placeholder",
+      "field": "Field"
+    }
+  }

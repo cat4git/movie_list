@@ -3,9 +3,10 @@ import i18n from "i18n-js"
 
 const en = require("./en")
 const ja = require("./ja")
+const he = require("./he")
 
 i18n.fallbacks = true
-i18n.translations = { en, ja }
+i18n.translations = { en, ja , he }
 
 const fallback = { languageTag: "en", isRTL: false }
 
