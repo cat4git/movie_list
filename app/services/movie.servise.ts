@@ -41,7 +41,7 @@ export class MovieServise{
     }
     getFirestPage(){
       const language=Strings.language
-      return this.fetchMovieList(1,language)
+      this.fetchMovieList(1,language)
     }
     getNextPage(){
       this.pageNumber++

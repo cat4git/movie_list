@@ -1,10 +1,11 @@
 import { GoogleSigninButton } from '@react-native-community/google-signin'
 import React, { Component } from "react"
-import { Button, StyleSheet, View } from "react-native"
+import { StyleSheet, View, Text, Image } from "react-native"
 import { Strings } from "../i18n/i18n"
 import { movieServise, googleLoginServise } from "../services"
 import { color, spacing } from "../theme"
-
+import { Button, } from 'react-native-elements';
+import { flexDirection } from '../style/rtl'
 
 export class WelcomeScreen extends Component<any, any> {  
 
@@ -12,7 +13,7 @@ export class WelcomeScreen extends Component<any, any> {
     super(props);
     // state
     this.state = {
-      isSignedIn:false
+      userInfo:undefined
     };
   }
 
@@ -29,7 +30,8 @@ export class WelcomeScreen extends Component<any, any> {
 
   signIn =async ()=>{
     const userInfo = await googleLoginServise.signIn()
-    this.setState({userInfo:userInfo})
+    console.log(userInfo)
+    this.setState({userInfo:userInfo.user})
   }
 
   loginButton(){
@@ -47,21 +49,33 @@ export class WelcomeScreen extends Component<any, any> {
   }
   renderMovieListButton(){
     return(
+      <View style={[styles.fullScreen,]}>
+        <View>
+        <View style={[flexDirection(Strings.isRTL),styles.fons,{justifyContent: 'center'}]}>
+          <Text >{`${Strings.welcomeScreen.welcomeText} `}</Text>
+          <Text >{this.state.userInfo.name}</Text>
+        </View>
+        <Image
+              style={styles.image}
+              source={{
+                uri: this.state.userInfo.photo,
+              }}
+            />
+        </View>
       <Button
-        style={styles.MovieListButton}
-        textStyle={styles.MovieListButtonText}
+        style={styles.movieListButton}
+        textStyle={[styles.fons,styles.movieListButtonText]}
         title={Strings.welcomeScreen.movieList}
         onPress={this.nextScreen}
       />
+      </View>
     )
   }
 
   render(){
-    if (this.state.isSignedIn){
+    if (this.state.userInfo){
       return (
-        <View style={styles.fullScreen}>
-          {this.renderMovieListButton()}
-        </View>
+        this.renderMovieListButton()
       ) 
     }
     return(
@@ -72,25 +86,36 @@ export class WelcomeScreen extends Component<any, any> {
 
 const styles = StyleSheet.create({
   fullScreen:{
-    flex: 1
+    flex: 1,
+    justifyContent:"space-between",
+    flexDirection:"column"
   },
-  MovieListButton:{
+  movieListButton:{
     paddingVertical: spacing[4],
     paddingHorizontal: spacing[4],
     backgroundColor: "#5D2555",
   },
-  MovieListButtonText:{
-    color: color.palette.white,
+  fons:{
     fontFamily: "Montserrat",
     fontWeight: "bold" ,
     fontSize: 13,
     letterSpacing: 2,
   },
+  movieListButtonText:{
+    color: color.palette.white,
+  },
+
   loginButton:{
     flex:1,
     alignItems:'center',
     justifyContent:'center'
-  }
+  },
+  image:{
+    width:350,
+    height:350,
+    alignSelf:"center",
+    display:"flex",
+  },
 
 
 })
