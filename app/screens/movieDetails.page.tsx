@@ -11,18 +11,13 @@ import { observer } from "mobx-react-lite"
 
  const Favorites = observer(({index})=> {
     const addRemoveFavorites=()=>{
-      console.log("addRemoveFavorites")
       movieServise.addRemoveFavorites(index)
     }
 
     const displayFavorites=()=>{
-      console.log("displayFavorites")
+      
     }
     const icon=movieServise.favorites.indexOf(index)>-1?"remove-circle":"add-circle";
-    console.log(index)
-    console.log(movieServise.favorites)
-
-    console.log("renderFavorites")
     return (
         <View style={[flexDirection(!Strings.isRTL)]}> 
          <Icon name={icon} onPress={addRemoveFavorites} color="white" />
@@ -35,11 +30,7 @@ import { observer } from "mobx-react-lite"
  })
 
   export class MovieDetails extends Component<any, any> {
-  
-    componentDidMount(){
-      console.log(this.props)
-      console.log(this.props.route.params)
-    }
+
 
     goBack = () => {
       const { navigation } = this.props;

@@ -1,61 +1,95 @@
-import { useNavigation } from "@react-navigation/native"
+import { GoogleSigninButton } from '@react-native-community/google-signin'
 import React, { Component } from "react"
-import { Button, SafeAreaView, StyleSheet, View } from "react-native"
+import { Button, StyleSheet, View } from "react-native"
 import { Strings } from "../i18n/i18n"
-import { movieServise } from "../services"
+import { movieServise, googleLoginServise } from "../services"
 import { color, spacing } from "../theme"
 
 
-export class WelcomeScreen extends Component<any, any> {
-// export const WelcomeScreen: Component = observer(function WelcomeScreen() {
-  
+export class WelcomeScreen extends Component<any, any> {  
+
+  constructor(props) {
+    super(props);
+    // state
+    this.state = {
+      isSignedIn:false
+    };
+  }
+
+  componentDidMount= async()=>{
+    const isSignedIn =await googleLoginServise.isSignedIn()
+    this.setState({isSignedIn:isSignedIn})
+  }
+
   nextScreen = () => {
     const {navigation}=this.props
      movieServise.getFirestPage(); 
      navigation.navigate("movieList")
-    }
+  }
+
+  signIn =async ()=>{
+    const userInfo = await googleLoginServise.signIn()
+    this.setState({userInfo:userInfo})
+  }
+
+  loginButton(){
+    return(
+      <View style={styles.loginButton}>
+      <GoogleSigninButton
+      style={{ width: 192, height: 48 }}
+      size={GoogleSigninButton.Size.Wide}
+      color={GoogleSigninButton.Color.Dark}
+      onPress={this.signIn}
+      disabled={this.state.isSigninInProgress} />
+      
+      </View>
+    )
+  }
+  renderMovieListButton(){
+    return(
+      <Button
+        style={styles.MovieListButton}
+        textStyle={styles.MovieListButtonText}
+        title={Strings.welcomeScreen.movieList}
+        onPress={this.nextScreen}
+      />
+    )
+  }
 
   render(){
-  return (
-    <View style={styles.FULL}>
-      <SafeAreaView style={styles.FOOTER}>
-        <View style={styles.FOOTER_CONTENT}>
-          <Button
-            style={styles.CONTINUE}
-            textStyle={styles.CONTINUE_TEXT}
-            title={Strings.welcomeScreen.movieList}
-            onPress={this.nextScreen}
-          />
+    if (this.state.isSignedIn){
+      return (
+        <View style={styles.fullScreen}>
+          {this.renderMovieListButton()}
         </View>
-      </SafeAreaView>
-    </View>
-  )
+      ) 
+    }
+    return(
+      this.loginButton()
+    )
   }
 }
-// })
 
 const styles = StyleSheet.create({
-  FULL:{
+  fullScreen:{
     flex: 1
   },
-  FOOTER: {
-    backgroundColor: "#20162D" 
-  },
-  FOOTER_CONTENT:{
-    paddingVertical: spacing[4],
-    paddingHorizontal: spacing[4],
-  },
-  CONTINUE:{
+  MovieListButton:{
     paddingVertical: spacing[4],
     paddingHorizontal: spacing[4],
     backgroundColor: "#5D2555",
   },
-  CONTINUE_TEXT:{
+  MovieListButtonText:{
     color: color.palette.white,
     fontFamily: "Montserrat",
     fontWeight: "bold" ,
     fontSize: 13,
     letterSpacing: 2,
+  },
+  loginButton:{
+    flex:1,
+    alignItems:'center',
+    justifyContent:'center'
   }
 
 

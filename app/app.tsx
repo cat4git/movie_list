@@ -29,6 +29,7 @@ import { RootStore, RootStoreProvider, setupRootStore } from "./models"
 // https://github.com/kmagiera/react-native-screens#using-native-stack-navigator
 import { enableScreens } from 'react-native-screens'
 import { setText } from "./i18n/i18n"
+import { googleLoginServise } from "./services"
 enableScreens()
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
@@ -60,6 +61,7 @@ const App: Component<{}> = () => {
   // with your own loading component if you wish.
   if (!rootStore) return null
   setText()
+  googleLoginServise.consig()
   // otherwise, we're ready to render the app
   return (
     <RootStoreProvider value={rootStore}>
