@@ -12,6 +12,7 @@
     },
     "welcomeScreen": {
       "movieList": "רשימת סרטים",
+      "welcomeText":"ברוך הבא "
     },
     "movieScreen": {
       "movieList": "רשימת סרטים",

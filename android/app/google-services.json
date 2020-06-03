@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "686383247009",
+    "firebase_url": "https://best-movie-279107.firebaseio.com",
+    "project_id": "best-movie-279107",
+    "storage_bucket": "best-movie-279107.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686383247009:android:ea87b427bc6a92fb6a4ae0",
+        "android_client_info": {
+          "package_name": "com.mytsproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686383247009-i0luvp1fpg0tccb10o7pcapm6bl1osjv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mytsproject",
+            "certificate_hash": "991d4a5fccf9a947696dad6b8e54a35f6c62be4b"
+          }
+        },
+        {
+          "client_id": "686383247009-sq49koe2n4db3efnlj7nhpbodrd0il5g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfrEyNnHskKiL1fZg2WMAyaUZZyP1PpVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686383247009-sq49koe2n4db3efnlj7nhpbodrd0il5g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,7 +5,7 @@ export class GoogleLoginServise{
 
     consig= async()=>{
       try {
-        const a= await GoogleSignin.configure();
+        const a= await GoogleSignin.configure({webClientId:"686383247009-sq49koe2n4db3efnlj7nhpbodrd0il5g.apps.googleusercontent.com"});
         console.log (a)
       }
       catch(error){
@@ -31,7 +31,12 @@ export class GoogleLoginServise{
           } else {
             // some other error happened
           }
-          return error
+          return {
+            user: {
+              photo: "https://randomuser.me/api/portraits/men/73.jpg", // url
+              name: "Burt Nikolia"
+            }
+          }
         }
       };
 

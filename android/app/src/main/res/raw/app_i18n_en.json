@@ -6,13 +6,13 @@
     "cancel": "Cancel",
     "back": "Back",
    
-
   },
   "errors": {
     "invalidEmail": "Invalid email address."
   },
   "welcomeScreen": {
-    "movieList": "Movie List"
+    "movieList": "Movie List",
+    "welcomeText":"Welcome"
   },
   "movieScreen": {
     "movieList": "Movie List",
