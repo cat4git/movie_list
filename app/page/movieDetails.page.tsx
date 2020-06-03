@@ -1,6 +1,6 @@
-import React, { Component } from "react"
+import React, { Component, useState } from "react"
 import { Platform, StyleSheet, View, Image, ScrollView } from "react-native"
-import { Header, Icon,Text, Rating ,Badge  } from "react-native-elements"
+import { Header, Icon,Text, Rating ,Badge, Overlay  } from "react-native-elements"
 import { Strings } from "../i18n/i18n"
 import { textAlign, flexDirection } from "../style/rtl"
 import { movieServise } from "../services"
@@ -9,28 +9,50 @@ import { observer } from "mobx-react-lite"
 
 
 
+
  const Favorites = observer(({index})=> {
+
+    const [visible, setVisible] = useState(false);
+    
+    const toggleOverlay = () => {
+      const {favorites}=movieServise
+      if (favorites.length>0){
+      setVisible(!visible);
+      }
+    }
+
     const addRemoveFavorites=()=>{
       movieServise.addRemoveFavorites(index)
     }
-
-    const displayFavorites=()=>{
-      
-    }
     const icon=movieServise.favorites.indexOf(index)>-1?"remove-circle":"add-circle";
+
+  
+    const renderMoveList=()=>{
+      const {movieLiset,favorites}=movieServise
+      let list =[]
+      for(let ent of favorites){
+        list.push(<Text key={ent}>{movieLiset[ent].title} </Text>)
+      }
+      return list
+      } 
+
     return (
         <View style={[flexDirection(!Strings.isRTL)]}> 
          <Icon name={icon} onPress={addRemoveFavorites} color="white" />
          <View style={{marginHorizontal:7}}>
-            <Icon name={"videocam"} color="white" onPress={displayFavorites}></Icon>
-            <Badge value={movieServise.favorites.length} containerStyle={{ position: 'absolute', top: -4, right: -4 }} badgeStyle={{backgroundColor:"gray"}}  ></Badge>
+            <Icon name={"videocam"} color="white" onPress={toggleOverlay} ></Icon>
+            <Badge value={movieServise.favorites.length} containerStyle={{ position: 'absolute', top: -4, right: -4 }} badgeStyle={{backgroundColor:"gray"}} onPress={toggleOverlay} ></Badge>
           </View>
+          <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+            <View>
+            {renderMoveList()}
+            </View>
+          </Overlay>
         </View>
     )
  })
 
   export class MovieDetails extends Component<any, any> {
-
 
     goBack = () => {
       const { navigation } = this.props;

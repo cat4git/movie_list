@@ -12,7 +12,8 @@
   },
   "welcomeScreen": {
     "movieList": "Movie List",
-    "welcomeText":"Welcome"
+    "welcomeText":"Welcome",
+    "loginText":"Login"
   },
   "movieScreen": {
     "movieList": "Movie List",

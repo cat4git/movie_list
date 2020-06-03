@@ -1,11 +1,12 @@
-import { GoogleSigninButton } from '@react-native-community/google-signin'
 import React, { Component } from "react"
-import { StyleSheet, View, Text, Image } from "react-native"
+import { Image, StyleSheet, Text, View } from "react-native"
+import { Button, } from 'react-native-elements'
+import { GraphRequest, GraphRequestManager, LoginManager ,LoginButton} from 'react-native-fbsdk'
 import { Strings } from "../i18n/i18n"
-import { movieServise, googleLoginServise } from "../services"
-import { color, spacing } from "../theme"
-import { Button, } from 'react-native-elements';
+import { movieServise } from "../services"
 import { flexDirection } from '../style/rtl'
+import { color, spacing } from "../theme"
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export class WelcomeScreen extends Component<any, any> {  
 
@@ -13,13 +14,9 @@ export class WelcomeScreen extends Component<any, any> {
     super(props);
     // state
     this.state = {
-      userInfo:undefined
+      userInfo: undefined
+     
     };
-  }
-
-  componentDidMount= async()=>{
-    const isSignedIn =await googleLoginServise.isSignedIn()
-    this.setState({isSignedIn:isSignedIn})
   }
 
   nextScreen = () => {
@@ -28,22 +25,60 @@ export class WelcomeScreen extends Component<any, any> {
      navigation.navigate("movieList")
   }
 
-  signIn =async ()=>{
-    const userInfo = await googleLoginServise.signIn()
-    console.log(userInfo)
-    this.setState({userInfo:userInfo.user})
-  }
 
+  // If it was more than two functions, I would move to a separate file
+  get_Response_Info = (error, result) => {
+    if (error) {
+      //Alert for the Error
+      console.log('Error fetching data: ' + error.toString());
+    } else {
+      //response alert
+      
+      this.setState({userInfo:{ user_name: result.name,profile_pic: result.picture.data.url}})
+    }
+  };
+  
+  loginFacebook=()=>{
+    LoginManager.logInWithPermissions(["public_profile"]).then(
+      (result)=> {
+        if (result.isCancelled) {
+          console.log("Login cancelled");
+        } else {
+          console.log(
+            "Login success with permissions: " +
+              result.grantedPermissions.toString()
+          );
+
+          const processRequest = new GraphRequest(
+            '/me?fields=name,picture.type(large)',
+            null,
+            this.get_Response_Info
+          );
+          // Start the graph request.
+          new GraphRequestManager().addRequest(processRequest).start();
+          
+        }
+      },
+      function(error) {
+        console.log("Login fail with error: " + error);
+      })
+  }
   loginButton(){
     return(
       <View style={styles.loginButton}>
-      <GoogleSigninButton
-      style={{ width: 192, height: 48 }}
-      size={GoogleSigninButton.Size.Wide}
-      color={GoogleSigninButton.Color.Dark}
-      onPress={this.signIn}
-      disabled={this.state.isSigninInProgress} />
-      
+        <Button 
+          onPress={this.loginFacebook}
+          title={`${Strings.welcomeScreen.loginText}  `}
+          color={"#4267B2"}
+          icon={
+            <Icon
+              name="facebook"
+              size={15}
+              color="white"
+            />
+          }
+
+        />
       </View>
     )
   }
@@ -51,14 +86,14 @@ export class WelcomeScreen extends Component<any, any> {
     return(
       <View style={[styles.fullScreen,]}>
         <View>
-        <View style={[flexDirection(Strings.isRTL),styles.fons,{justifyContent: 'center'}]}>
-          <Text >{`${Strings.welcomeScreen.welcomeText} `}</Text>
-          <Text >{this.state.userInfo.name}</Text>
+        <View style={[flexDirection(Strings.isRTL),styles.fons,{justifyContent: 'center',marginBottom:15}]}>
+          <Text style={styles.fons}  >{`${Strings.welcomeScreen.welcomeText} `}</Text>
+          <Text style={styles.fons}  >{this.state.userInfo.user_name}</Text>
         </View>
         <Image
               style={styles.image}
               source={{
-                uri: this.state.userInfo.photo,
+                uri: this.state.userInfo.profile_pic,
               }}
             />
         </View>
@@ -98,7 +133,7 @@ const styles = StyleSheet.create({
   fons:{
     fontFamily: "Montserrat",
     fontWeight: "bold" ,
-    fontSize: 13,
+    fontSize: 15,
     letterSpacing: 2,
   },
   movieListButtonText:{

@@ -12,7 +12,8 @@
     },
     "welcomeScreen": {
       "movieList": "רשימת סרטים",
-      "welcomeText":"ברוך הבא "
+      "welcomeText":"ברוך הבא ",
+      "loginText":"התחבר"
     },
     "movieScreen": {
       "movieList": "רשימת סרטים",
