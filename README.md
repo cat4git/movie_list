@@ -11,6 +11,13 @@ INSTALL
 4) run the app I.E: npm run android
 
 
+
+DOTO
+====
+
+* Clear the code from any residue added at the time of project creation.
+* Rename project, icons, add loading screen.
+
 Licence
 =======
 
