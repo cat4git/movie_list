@@ -7,7 +7,7 @@
 import React from "react"
 
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
-import { WelcomeScreen, MovieList ,MovieDetails } from "../screens"
+import { WelcomeScreen, MovieList ,MovieDetails } from "../page"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
